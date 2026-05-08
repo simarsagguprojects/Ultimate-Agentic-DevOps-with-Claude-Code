@@ -19,7 +19,7 @@ Single-page portfolio site with no build step, no JavaScript framework, and no p
 ## Deployment to AWS
 - Use Terraform for creating AWS resources.
 - Create a General purpose S3 bucket named "DevOps-Hosting" if not created already.
-- Configure the bucket to allow public access and put bucket policy to only allow get object action and explicit deny rest of the actions.
+- Configure the bucket to allow public access and put bucket policy to only allow get object to all and allow all read actions to SmartSimar user and explicit deny rest of the actions.
 - Copy all *.html,*.jpg,images/*.jpg to DevOps-Hosting bucket.
 - Enable static website hosting on the bucket and set index file to index.html.
 - Create CloudFront and link it to DevOps-Hosting Amazon S3 bucket we created.
@@ -28,7 +28,7 @@ Single-page portfolio site with no build step, no JavaScript framework, and no p
 
 - Create a GitHub Actions CI/CD pipeline that deploys to AWS on any changes pushed or merged to main branch of this repository.
 - Uses OIDC for AWS authentication.
-- Every deployment should copy all *.html,*.jpg,images/*.jpg to DevOps-Hosting bucket.
+- Every deployment should copy all *.html,*.jpg,images/*.jpg to devOps-h/osting bucket.
 - The pipeline should directly do production deployment and will include pre-deploy, deploy and test steps.
 
 ## Conventions

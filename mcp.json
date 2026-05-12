@@ -6,7 +6,7 @@
         "run",
         "-i",
         "--rm",
-        "-v", "/Users/pravinkumar/Downloads/Pravin-Mishra-Portfolio-Template/terraform:/workspace",
+        "-v", "/Users/simarsaggu/PycharmProjects/AIWorld/Ultimate-Agentic-DevOps-with-Claude-Code/terraform:/workspace",
         "-w", "/workspace",
         "hashicorp/terraform-mcp-server"
       ]

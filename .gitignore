@@ -9,3 +9,5 @@ terraform/.terraform/
 
 # Python virtual environment
 venv/
+settings.local.json
+.claude/agent-memory/

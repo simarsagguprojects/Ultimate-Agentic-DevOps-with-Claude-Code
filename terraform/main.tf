@@ -10,6 +10,44 @@ resource "aws_s3_bucket" "website" {
   }
 }
 
+# ─── S3 Logs Bucket ───────────────────────────────────────────────────────────
+
+resource "aws_s3_bucket" "logs" {
+  bucket = "devops-hosting-logs-956651462310"
+
+  tags = {
+    Project     = var.project_name
+    Environment = var.environment
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "logs" {
+  bucket = aws_s3_bucket.logs.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+# S3 server access logging requires BucketOwnerPreferred so that AWS can
+# deliver log objects owned by the bucket owner, not the logging service.
+resource "aws_s3_bucket_ownership_controls" "logs" {
+  bucket = aws_s3_bucket.logs.id
+
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_logging" "website" {
+  bucket        = aws_s3_bucket.website.id
+  target_bucket = aws_s3_bucket.logs.id
+  target_prefix = "s3-access-logs/"
+
+  depends_on = [aws_s3_bucket_ownership_controls.logs]
+}
+
 # Allow public policies while still blocking public ACLs
 resource "aws_s3_bucket_public_access_block" "website" {
   bucket = aws_s3_bucket.website.id
